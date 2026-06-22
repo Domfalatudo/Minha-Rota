@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0a1628">
+  <meta name="description" content="Minha Rota - Aplicativo para gerenciamento de rotas de colportagem">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="public/images/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="public/images/icon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="public/css/style.css">
+  <link rel="stylesheet" href="public/css/dark-mode.css">
+  <title>Minha Rota</title>
+</head>
+<body>
+  <!-- Splash Screen / Loading -->
+  <div id="splash-screen" class="splash-screen">
+    <div class="splash-content">
+      <svg class="splash-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="3"/>
+        <path d="M25 50 L45 68 L75 32" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h1>Minha Rota</h1>
+      <div class="splash-loader">
+        <div class="splash-loader-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTIFICATION BANNER -->
+  <div id="notification-banner" class="notification-banner hidden">
+    <div class="notification-banner-content">
+      <span id="notification-message"></span>
+      <button id="notification-close" class="notification-close">&times;</button>
+    </div>
+  </div>
+
+  <!-- ===================== TELA DE LOGIN ===================== -->
+  <section id="screen-login" class="screen active">
+    <div class="screen-wrapper">
+      <div class="auth-container">
+        <div class="auth-header">
+          <svg class="auth-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="3"/>
+            <path d="M25 50 L45 68 L75 32" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h1>Minha Rota</h1>
+          <p class="auth-subtitle">Gerencie suas rotas de campo</p>
+        </div>
+        <form id="login-form" class="auth-form" autocomplete="on">
+          <div class="input-group">
+            <label for="login-email">E-mail</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                <path d="M22 4L12 13L2 4"/>
+              </svg>
+              <input type="email" id="login-email" placeholder="seu@email.com" required autocomplete="email">
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="login-password">Senha</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2"/>
+                <path d="M7 11V7a5 5 0 0110 0v4"/>
+              </svg>
+              <input type="password" id="login-password" placeholder="Sua senha" required autocomplete="current-password">
+              <button type="button" class="toggle-password" data-target="login-password">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <button type="submit" id="login-btn" class="btn btn-primary btn-large">
+            <span>Entrar</span>
+            <div class="btn-spinner hidden"></div>
+          </button>
+          <div id="login-error" class="error-message hidden"></div>
+          <div class="auth-links">
+            <button type="button" id="forgot-password-link" class="link-btn">Esqueci minha senha</button>
+            <button type="button" id="signup-link" class="link-btn">Criar conta</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TELA DE CADASTRO ===================== -->
+  <section id="screen-signup" class="screen">
+    <div class="screen-wrapper">
+      <div class="auth-container">
+        <div class="auth-header">
+          <button type="button" id="back-to-login" class="btn-back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+          </button>
+          <h1>Criar Conta</h1>
+        </div>
+        <form id="signup-form" class="auth-form" autocomplete="on">
+          <div class="input-group">
+            <label for="signup-name">Nome Completo</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+              <input type="text" id="signup-name" placeholder="Seu nome completo" required autocomplete="name">
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="signup-email">E-mail</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                <path d="M22 4L12 13L2 4"/>
+              </svg>
+              <input type="email" id="signup-email" placeholder="seu@email.com" required autocomplete="email">
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="signup-password">Senha</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2"/>
+                <path d="M7 11V7a5 5 0 0110 0v4"/>
+              </svg>
+              <input type="password" id="signup-password" placeholder="Mínimo 6 caracteres" required minlength="6" autocomplete="new-password">
+              <button type="button" class="toggle-password" data-target="signup-password">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="signup-confirm">Confirmar Senha</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2"/>
+                <path d="M7 11V7a5 5 0 0110 0v4"/>
+              </svg>
+              <input type="password" id="signup-confirm" placeholder="Repita a senha" required minlength="6" autocomplete="new-password">
+              <button type="button" class="toggle-password" data-target="signup-confirm">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <button type="submit" id="signup-btn" class="btn btn-primary btn-large">
+            <span>Criar Conta</span>
+            <div class="btn-spinner hidden"></div>
+          </button>
+          <div id="signup-error" class="error-message hidden"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TELA DE RECUPERAR SENHA ===================== -->
+  <section id="screen-forgot" class="screen">
+    <div class="screen-wrapper">
+      <div class="auth-container">
+        <div class="auth-header">
+          <button type="button" id="back-from-forgot" class="btn-back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+          </button>
+          <h1>Recuperar Senha</h1>
+          <p class="auth-subtitle">Enviaremos um link para seu e-mail</p>
+        </div>
+        <form id="forgot-form" class="auth-form">
+          <div class="input-group">
+            <label for="forgot-email">E-mail</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                <path d="M22 4L12 13L2 4"/>
+              </svg>
+              <input type="email" id="forgot-email" placeholder="seu@email.com" required autocomplete="email">
+            </div>
+          </div>
+          <button type="submit" id="forgot-btn" class="btn btn-primary btn-large">
+            <span>Enviar Link</span>
+            <div class="btn-spinner hidden"></div>
+          </button>
+          <div id="forgot-error" class="error-message hidden"></div>
+          <div id="forgot-success" class="success-message hidden"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TELA PRINCIPAL (LISTA DE RUAS) ===================== -->
+  <section id="screen-main" class="screen">
+    <header class="app-header">
+      <div class="header-left">
+        <button type="button" id="menu-toggle" class="btn-icon" aria-label="Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+        <h1 class="header-title">Minha Rota</h1>
+      </div>
+      <div class="header-right">
+        <span id="header-user-name" class="header-user-name"></span>
+        <button type="button" id="logout-btn" class="btn-icon" aria-label="Sair">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Sidebar Menu -->
+    <nav id="sidebar" class="sidebar hidden">
+      <div class="sidebar-overlay" id="sidebar-overlay"></div>
+      <div class="sidebar-content">
+        <div class="sidebar-header">
+          <div class="sidebar-user-info">
+            <div class="sidebar-avatar" id="sidebar-avatar">
+              <span id="sidebar-avatar-text">U</span>
+            </div>
+            <div>
+              <p class="sidebar-user-name" id="sidebar-user-name">Usuário</p>
+              <p class="sidebar-user-email" id="sidebar-user-email">email@email.com</p>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-menu">
+          <button type="button" class="sidebar-item" id="sidebar-toggle-theme">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+            </svg>
+            <span id="sidebar-theme-text">Modo Escuro</span>
+          </button>
+          <button type="button" class="sidebar-item" id="sidebar-logout">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+              <polyline points="16 17 21 12 16 7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+            <span>Sair</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <!-- Stats Bar -->
+      <div class="stats-bar">
+        <div class="stat-item">
+          <span class="stat-value" id="stat-total">0</span>
+          <span class="stat-label">Ruas</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value" id="stat-houses">0</span>
+          <span class="stat-label">Casas</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value stat-pending" id="stat-pending">0</span>
+          <span class="stat-label">Pendentes</span>
+        </div>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="search-bar">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="text" id="search-street" placeholder="Buscar rua..." class="search-input">
+      </div>
+
+      <!-- Streets List -->
+      <div id="streets-container" class="list-container">
+        <div id="streets-empty" class="empty-state">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="10" y="20" width="80" height="60" rx="8"/>
+            <line x1="20" y1="40" x2="80" y2="40"/>
+            <line x1="20" y1="55" x2="60" y2="55"/>
+            <line x1="20" y1="70" x2="45" y2="70"/>
+          </svg>
+          <p>Nenhuma rua cadastrada</p>
+          <p class="empty-sub">Adicione sua primeira rua</p>
+        </div>
+        <div id="streets-list" class="item-list"></div>
+      </div>
+    </main>
+
+    <!-- FAB (Add Street) -->
+    <button type="button" id="fab-add-street" class="fab" aria-label="Adicionar rua">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+    </button>
+  </section>
+
+  <!-- ===================== TELA DE TABELA DA RUA ===================== -->
+  <section id="screen-street" class="screen">
+    <header class="app-header">
+      <div class="header-left">
+        <button type="button" id="back-to-streets" class="btn-icon" aria-label="Voltar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </button>
+        <div class="header-street-info">
+          <h1 id="street-title" class="header-title">Rua</h1>
+          <span id="street-subtitle" class="header-subtitle">0 casas</span>
+        </div>
+      </div>
+      <div class="header-right">
+        <button type="button" id="edit-street-btn" class="btn-icon" aria-label="Editar rua">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+            <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+          </svg>
+        </button>
+        <button type="button" id="delete-street-btn" class="btn-icon btn-icon-danger" aria-label="Excluir rua">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <!-- Status Filter Tabs -->
+      <div class="filter-tabs" id="filter-tabs">
+        <button class="filter-tab active" data-filter="all">Todas</button>
+        <button class="filter-tab" data-filter="vendeu">Vendeu</button>
+        <button class="filter-tab" data-filter="retornar">Retornar</button>
+        <button class="filter-tab" data-filter="nao_atendeu">Não Atendeu</button>
+      </div>
+
+      <!-- Summary Cards -->
+      <div class="summary-cards">
+        <div class="summary-card card-green">
+          <span class="summary-value" id="summary-vendeu">0</span>
+          <span class="summary-label">Vendeu</span>
+        </div>
+        <div class="summary-card card-yellow">
+          <span class="summary-value" id="summary-retornar">0</span>
+          <span class="summary-label">Retornar</span>
+        </div>
+        <div class="summary-card card-red">
+          <span class="summary-value" id="summary-nao-atendeu">0</span>
+          <span class="summary-label">Não Atendeu</span>
+        </div>
+      </div>
+
+      <!-- Houses List -->
+      <div id="houses-container" class="list-container">
+        <div id="houses-empty" class="empty-state">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 50 L50 20 L80 50"/>
+            <rect x="35" y="50" width="30" height="30" rx="3"/>
+            <rect x="45" y="55" width="10" height="10" rx="1"/>
+          </svg>
+          <p>Nenhuma casa cadastrada</p>
+          <p class="empty-sub">Adicione as casas desta rua</p>
+        </div>
+        <div id="houses-list" class="item-list"></div>
+      </div>
+    </main>
+
+    <!-- FAB (Add House) -->
+    <button type="button" id="fab-add-house" class="fab" aria-label="Adicionar casa">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+    </button>
+  </section>
+
+  <!-- ===================== BOTTOM SHEET ===================== -->
+  <div id="bottom-sheet-overlay" class="bottom-sheet-overlay hidden"></div>
+  <div id="bottom-sheet" class="bottom-sheet hidden">
+    <div class="bottom-sheet-handle">
+      <div class="handle-bar"></div>
+    </div>
+    <div class="bottom-sheet-content">
+      <div id="bottom-sheet-body"></div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+    import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut, updateProfile } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+    import { getFirestore, doc, setDoc, getDoc, getDocs, collection, query, where, orderBy, addDoc, updateDoc, deleteDoc, Timestamp, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+    // Firebase Config
+    const firebaseConfig = {
+      apiKey: 'AIzaSyAJJOKe8iaVUUjyLodW6sMv0LmACeJB2Ck',
+      authDomain: 'minha-rota-82cb3.firebaseapp.com',
+      projectId: 'minha-rota-82cb3',
+      storageBucket: 'minha-rota-82cb3.firebasestorage.app',
+      messagingSenderId: '335146516243',
+      appId: '1:335146516243:web:6bf5c661423abe6aaaa4e6'
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // ========== DOM REFS ==========
+    const $ = (id) => document.getElementById(id);
+    const $$ = (sel) => document.querySelectorAll(sel);
+
+    // Screens
+    const screens = {
+      login: $('screen-login'),
+      signup: $('screen-signup'),
+      forgot: $('screen-forgot'),
+      main: $('screen-main'),
+      street: $('screen-street')
+    };
+
+    // Auth
+    const loginForm = $('login-form');
+    const signupForm = $('signup-form');
+    const forgotForm = $('forgot-form');
+    const loginBtn = $('login-btn');
+    const signupBtn = $('signup-btn');
+    const forgotBtn = $('forgot-btn');
+    const loginError = $('login-error');
+    const signupError = $('signup-error');
+    const forgotError = $('forgot-error');
+    const forgotSuccess = $('forgot-success');
+
+    // Main
+    const searchStreet = $('search-street');
+    const streetsList = $('streets-list');
+    const streetsEmpty = $('streets-empty');
+    const statTotal = $('stat-total');
+    const statHouses = $('stat-houses');
+    const statPending = $('stat-pending');
+    const headerUserName = $('header-user-name');
+    const sidebarUserName = $('sidebar-user-name');
+    const sidebarUserEmail = $('sidebar-user-email');
+    const sidebarAvatarText = $('sidebar-avatar-text');
+
+    // Street
+    const streetTitle = $('street-title');
+    const streetSubtitle = $('street-subtitle');
+    const housesList = $('houses-list');
+    const housesEmpty = $('houses-empty');
+    const summaryVendeu = $('summary-vendeu');
+    const summaryRetornar = $('summary-retornar');
+    const summaryNaoAtendeu = $('summary-nao-atendeu');
+
+    // Bottom Sheet
+    const bottomSheet = $('bottom-sheet');
+    const sheetOverlay = $('bottom-sheet-overlay');
+    const sheetBody = $('bottom-sheet-body');
+
+    // Misc
+    const splash = $('splash-screen');
+    const notifBanner = $('notification-banner');
+    const notifMsg = $('notification-message');
+
+    // ========== STATE ==========
+    let currentUser = null;
+    let currentStreetId = null;
+    let currentStreetData = null;
+    let housesUnsub = null;
+    let streetsUnsub = null;
+    let currentFilter = 'all';
+    let isDarkMode = localStorage.getItem('darkMode') === 'true';
+
+    // ========== UTILITY ==========
+    function showScreen(name) {
+      Object.values(screens).forEach(s => s.classList.remove('active'));
+      screens[name].classList.add('active');
+    }
+
+    function showError(el, msg) {
+      el.textContent = msg;
+      el.classList.remove('hidden');
+      setTimeout(() => el.classList.add('hidden'), 5000);
+    }
+
+    function showSuccess(el, msg) {
+      el.textContent = msg;
+      el.classList.remove('hidden');
+      setTimeout(() => el.classList.add('hidden'), 5000);
+    }
+
+    function showNotif(msg, isError = false) {
+      notifMsg.textContent = msg;
+      notifBanner.classList.remove('hidden');
+      if (isError) {
+        notifBanner.style.background = 'var(--color-red)';
+      } else {
+        notifBanner.style.background = 'var(--color-accent)';
+      }
+      setTimeout(() => notifBanner.classList.add('hidden'), 5000);
+    }
+
+    function setLoading(btn, loading) {
+      const span = btn.querySelector('span');
+      const spinner = btn.querySelector('.btn-spinner');
+      if (loading) {
+        span.classList.add('hidden');
+        spinner.classList.remove('hidden');
+        btn.disabled = true;
+      } else {
+        span.classList.remove('hidden');
+        spinner.classList.add('hidden');
+        btn.disabled = false;
+      }
+    }
+
+    function formatDate(ts) {
+      if (!ts) return '';
+      const d = ts.toDate ? ts.toDate() : new Date(ts);
+      return d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    }
+
+    function formatTime(ts) {
+      if (!ts) return '';
+      const d = ts.toDate ? ts.toDate() : new Date(ts);
+      return d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function getInitials(name) {
+      return name ? name.charAt(0).toUpperCase() : 'U';
+    }
+
+    function getStatusColor(status) {
+      switch(status) {
+        case 'vendeu': return 'var(--color-green)';
+        case 'retornar': return 'var(--color-yellow)';
+        case 'nao_atendeu': return 'var(--color-red)';
+        default: return 'var(--color-gray)';
+      }
+    }
+
+    function getStatusLabel(status) {
+      switch(status) {
+        case 'vendeu': return 'Vendeu';
+        case 'retornar': return 'Retornar';
+        case 'nao_atendeu': return 'Não Atendeu';
+        default: return 'Pendente';
+      }
+    }
+
+    // ========== AUTH ==========
+    function showAuthScreen(user) {
+      if (user) {
+        currentUser = user;
+        headerUserName.textContent = user.displayName || 'Usuário';
+        sidebarUserName.textContent = user.displayName || 'Usuário';
+        sidebarUserEmail.textContent = user.email;
+        sidebarAvatarText.textContent = getInitials(user.displayName);
+        showScreen('main');
+        loadStreets();
+      } else {
+        currentUser = null;
+        showScreen('login');
+        if (streetsUnsub) { streetsUnsub(); streetsUnsub = null; }
+        if (housesUnsub) { housesUnsub(); housesUnsub = null; }
+      }
+    }
+
+    onAuthStateChanged(auth, (user) => {
+      setTimeout(() => {
+        splash.classList.add('fade-out');
+        setTimeout(() => splash.style.display = 'none', 500);
+      }, 800);
+      showAuthScreen(user);
+    });
+
+    // Login
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = $('login-email').value.trim();
+      const password = $('login-password').value;
+      setLoading(loginBtn, true);
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+      } catch (err) {
+        let msg = 'Erro ao fazer login';
+        if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
+          msg = 'E-mail ou senha inválidos';
+        } else if (err.code === 'auth/too-many-requests') {
+          msg = 'Muitas tentativas. Tente novamente mais tarde';
+        } else if (err.code === 'auth/invalid-email') {
+          msg = 'E-mail inválido';
+        }
+        showError(loginError, msg);
+        setLoading(loginBtn, false);
+      }
+    });
+
+    // Signup
+    signupForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = $('signup-name').value.trim();
+      const email = $('signup-email').value.trim();
+      const password = $('signup-password').value;
+      const confirm = $('signup-confirm').value;
+
+      if (password !== confirm) {
+        showError(signupError, 'As senhas não conferem');
+        return;
+      }
+      if (password.length < 6) {
+        showError(signupError, 'A senha deve ter no mínimo 6 caracteres');
+        return;
+      }
+      if (!name) {
+        showError(signupError, 'Informe seu nome completo');
+        return;
+      }
+
+      setLoading(signupBtn, true);
+      try {
+        const cred = await createUserWithEmailAndPassword(auth, email, password);
+        await updateProfile(cred.user, { displayName: name });
+        // Save user data to Firestore
+        await setDoc(doc(db, 'users', cred.user.uid), {
+          name: name,
+          email: email,
+          createdAt: Timestamp.now()
+        });
+      } catch (err) {
+        let msg = 'Erro ao criar conta';
+        if (err.code === 'auth/email-already-in-use') {
+          msg = 'Este e-mail já está em uso';
+        } else if (err.code === 'auth/weak-password') {
+          msg = 'Senha muito fraca';
+        } else if (err.code === 'auth/invalid-email') {
+          msg = 'E-mail inválido';
+        }
+        showError(signupError, msg);
+        setLoading(signupBtn, false);
+      }
+    });
+
+    // Forgot password
+    forgotForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = $('forgot-email').value.trim();
+      setLoading(forgotBtn, true);
+      try {
+        await sendPasswordResetEmail(auth, email);
+        showSuccess(forgotSuccess, 'Link enviado! Verifique seu e-mail.');
+        forgotForm.reset();
+      } catch (err) {
+        let msg = 'Erro ao enviar link';
+        if (err.code === 'auth/user-not-found') {
+          msg = 'Nenhuma conta encontrada com este e-mail';
+        } else if (err.code === 'auth/invalid-email') {
+          msg = 'E-mail inválido';
+        }
+        showError(forgotError, msg);
+      }
+      setLoading(forgotBtn, false);
+    });
+
+    // Logout
+    function handleLogout() {
+      signOut(auth);
+      showScreen('login');
+    }
+
+    // Navigation links
+    $('signup-link').addEventListener('click', () => showScreen('signup'));
+    $('back-to-login').addEventListener('click', () => showScreen('login'));
+    $('forgot-password-link').addEventListener('click', () => showScreen('forgot'));
+    $('back-from-forgot').addEventListener('click', () => showScreen('login'));
+    $('sidebar-logout').addEventListener('click', () => { closeSidebar(); handleLogout(); });
+    $('logout-btn').addEventListener('click', handleLogout);
+
+    // Toggle password visibility
+    $$('.toggle-password').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = $(btn.dataset.target);
+        if (!target) return;
+        if (target.type === 'password') {
+          target.type = 'text';
+          btn.classList.add('visible');
+        } else {
+          target.type = 'password';
+          btn.classList.remove('visible');
+        }
+      });
+    });
+
+    // ========== SIDEBAR ==========
+    function openSidebar() {
+      $('sidebar').classList.remove('hidden');
+      setTimeout(() => $('sidebar').classList.add('open'), 10);
+    }
+    function closeSidebar() {
+      $('sidebar').classList.remove('open');
+      setTimeout(() => $('sidebar').classList.add('hidden'), 300);
+    }
+    $('menu-toggle').addEventListener('click', openSidebar);
+    $('sidebar-overlay').addEventListener('click', closeSidebar);
+
+    // Theme Toggle
+    function applyTheme(dark) {
+      isDarkMode = dark;
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+      localStorage.setItem('darkMode', dark);
+      $('sidebar-theme-text').textContent = dark ? 'Modo Claro' : 'Modo Escuro';
+    }
+    $('sidebar-toggle-theme').addEventListener('click', () => {
+      applyTheme(!isDarkMode);
+    });
+    applyTheme(isDarkMode);
+
+    // ========== STREETS (Firestore) ==========
+    function loadStreets() {
+      if (streetsUnsub) streetsUnsub();
+      if (!currentUser) return;
+
+      const streetsRef = collection(db, 'users', currentUser.uid, 'streets');
+      // Try with orderBy first, fallback to no order if index missing
+      try {
+        streetsUnsub = onSnapshot(
+          query(streetsRef, orderBy('createdAt', 'desc')),
+          (snapshot) => {
+            const streets = [];
+            snapshot.forEach(doc => streets.push({ id: doc.id, ...doc.data() }));
+            renderStreets(streets);
+            updateStats(streets);
+          },
+          (err) => {
+            console.error('Erro ao carregar ruas (com orderBy):', err.code, err.message);
+            // Fallback: load without orderBy if index missing
+            if (err.code === 'failed-precondition' || err.code === 'resource-exhausted') {
+              loadStreetsSimple();
+            } else {
+              showNotif('Erro: ' + (err.message || 'Erro ao carregar ruas'), true);
+            }
+          }
+        );
+      } catch (e) {
+        console.error('Erro inesperado:', e);
+        loadStreetsSimple();
+      }
+    }
+
+    function loadStreetsSimple() {
+      if (streetsUnsub) streetsUnsub();
+      if (!currentUser) return;
+      
+      const streetsRef = collection(db, 'users', currentUser.uid, 'streets');
+      streetsUnsub = onSnapshot(
+        streetsRef,
+        (snapshot) => {
+          const streets = [];
+          snapshot.forEach(doc => streets.push({ id: doc.id, ...doc.data() }));
+          // Sort locally by createdAt desc
+          streets.sort((a, b) => {
+            const aTime = a.createdAt?.toMillis?.() || 0;
+            const bTime = b.createdAt?.toMillis?.() || 0;
+            return bTime - aTime;
+          });
+          renderStreets(streets);
+          updateStats(streets);
+        },
+        (err) => {
+          console.error('Erro ao carregar ruas (simples):', err.code, err.message);
+          showNotif('Erro: Verifique as regras de segurança do Firestore no console do Firebase. Detalhes: ' + (err.message || ''), true);
+        }
+      );
+    }
+
+    function renderStreets(streets) {
+      const searchTerm = searchStreet.value.toLowerCase().trim();
+      let filtered = streets;
+      if (searchTerm) {
+        filtered = streets.filter(s => s.name?.toLowerCase().includes(searchTerm));
+      }
+
+      if (filtered.length === 0) {
+        streetsList.innerHTML = '';
+        streetsEmpty.style.display = 'flex';
+        return;
+      }
+      streetsEmpty.style.display = 'none';
+      streetsList.innerHTML = filtered.map(s => {
+        const totalHouses = s.houseCount || 0;
+        const pendingHouses = s.pendingCount || 0;
+        return `
+          <div class="street-card" data-id="${s.id}">
+            <div class="street-card-info">
+              <h3 class="street-name">${escapeHtml(s.name || 'Sem nome')}</h3>
+              <div class="street-meta">
+                <span class="street-meta-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                  </svg>
+                  ${totalHouses} casas
+                </span>
+                ${pendingHouses > 0 ? `<span class="street-meta-item pending">${pendingHouses} pendentes</span>` : ''}
+              </div>
+            </div>
+            <svg class="street-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </div>
+        `;
+      }).join('');
+
+      // Click to open street
+      streetsList.querySelectorAll('.street-card').forEach(card => {
+        card.addEventListener('click', () => {
+          openStreet(card.dataset.id);
+        });
+      });
+    }
+
+    function updateStats(streets) {
+      let totalHouses = 0;
+      let totalPending = 0;
+      streets.forEach(s => {
+        totalHouses += s.houseCount || 0;
+        totalPending += s.pendingCount || 0;
+      });
+      statTotal.textContent = streets.length;
+      statHouses.textContent = totalHouses;
+      statPending.textContent = totalPending;
+    }
+
+    // Search
+    searchStreet.addEventListener('input', () => {
+      if (streetsUnsub) {
+        // Re-trigger render by reading from cache - use the existing snapshot
+        // Actually we just need to re-filter; we'll reload
+        loadStreets();
+      }
+    });
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // ========== OPEN STREET ==========
+    function openStreet(streetId) {
+      currentStreetId = streetId;
+      if (housesUnsub) housesUnsub();
+
+      const streetRef = doc(db, 'users', currentUser.uid, 'streets', streetId);
+      getDoc(streetRef).then(docSnap => {
+        if (!docSnap.exists()) {
+          showNotif('Rua não encontrada');
+          return;
+        }
+        currentStreetData = { id: docSnap.id, ...docSnap.data() };
+        streetTitle.textContent = currentStreetData.name || 'Rua';
+        showScreen('street');
+        loadHouses(streetId);
+      }).catch(err => {
+        console.error('Erro ao abrir rua:', err);
+        showNotif('Erro ao abrir rua');
+      });
+    }
+
+    // ========== HOUSES ==========
+    function loadHouses(streetId) {
+      const housesRef = collection(db, 'users', currentUser.uid, 'streets', streetId, 'houses');
+      try {
+        housesUnsub = onSnapshot(
+          query(housesRef, orderBy('number', 'asc')),
+          (snapshot) => {
+            const houses = [];
+            snapshot.forEach(doc => houses.push({ id: doc.id, ...doc.data() }));
+            renderHouses(houses);
+            updateHouseSummary(houses);
+            updateStreetCounts(streetId, houses);
+          },
+          (err) => {
+            console.error('Erro ao carregar casas (com orderBy):', err.code, err.message);
+            if (err.code === 'failed-precondition' || err.code === 'resource-exhausted') {
+              loadHousesSimple(streetId);
+            } else {
+              showNotif('Erro: ' + (err.message || 'Erro ao carregar casas'), true);
+            }
+          }
+        );
+      } catch (e) {
+        loadHousesSimple(streetId);
+      }
+    }
+
+    function loadHousesSimple(streetId) {
+      if (housesUnsub) housesUnsub();
+      const housesRef = collection(db, 'users', currentUser.uid, 'streets', streetId, 'houses');
+      housesUnsub = onSnapshot(
+        housesRef,
+        (snapshot) => {
+          const houses = [];
+          snapshot.forEach(doc => houses.push({ id: doc.id, ...doc.data() }));
+          houses.sort((a, b) => (a.number || 0) - (b.number || 0));
+          renderHouses(houses);
+          updateHouseSummary(houses);
+          updateStreetCounts(streetId, houses);
+        },
+        (err) => {
+          console.error('Erro ao carregar casas (simples):', err.code, err.message);
+          showNotif('Erro: Verifique as regras do Firestore. ' + (err.message || ''), true);
+        }
+      );
+    }
+
+    function renderHouses(houses) {
+      let filtered = houses;
+      if (currentFilter !== 'all') {
+        filtered = houses.filter(h => h.status === currentFilter);
+      }
+
+      if (filtered.length === 0) {
+        housesList.innerHTML = '';
+        housesEmpty.style.display = 'flex';
+        return;
+      }
+      housesEmpty.style.display = 'none';
+      housesList.innerHTML = filtered.map(h => {
+        const statusColor = getStatusColor(h.status);
+        const statusLabel = getStatusLabel(h.status);
+        const hasReturn = h.returnDate && h.returnTime;
+        return `
+          <div class="house-card" data-id="${h.id}" data-number="${h.number || '?'}">
+            <div class="house-card-status" style="background: ${statusColor}"></div>
+            <div class="house-card-content">
+              <div class="house-card-header">
+                <span class="house-number">Nº ${escapeHtml(String(h.number || '-'))}</span>
+                <span class="house-status-badge" style="background: ${statusColor}20; color: ${statusColor}">${statusLabel}</span>
+              </div>
+              <p class="house-resident">${escapeHtml(h.resident || 'Sem nome')}</p>
+              ${h.notes ? `<p class="house-notes">${escapeHtml(h.notes)}</p>` : ''}
+              ${hasReturn ? `<p class="house-return">📅 Retorno: ${formatDate(h.returnDate)} às ${formatTime(h.returnTime)}</p>` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Click to edit house
+      housesList.querySelectorAll('.house-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const houseId = card.dataset.id;
+          const house = houses.find(h => h.id === houseId);
+          if (house) openHouseSheet(house, houses);
+        });
+      });
+    }
+
+    function updateHouseSummary(houses) {
+      let v = 0, r = 0, n = 0;
+      houses.forEach(h => {
+        if (h.status === 'vendeu') v++;
+        else if (h.status === 'retornar') r++;
+        else if (h.status === 'nao_atendeu') n++;
+      });
+      summaryVendeu.textContent = v;
+      summaryRetornar.textContent = r;
+      summaryNaoAtendeu.textContent = n;
+      streetSubtitle.textContent = `${houses.length} casas`;
+    }
+
+    async function updateStreetCounts(streetId, houses) {
+      const total = houses.length;
+      const pending = houses.filter(h => !h.status || h.status === 'pendente' || h.status === 'retornar').length;
+      try {
+        await updateDoc(doc(db, 'users', currentUser.uid, 'streets', streetId), {
+          houseCount: total,
+          pendingCount: pending
+        });
+      } catch (err) {
+        console.error('Erro ao atualizar contagens:', err);
+      }
+    }
+
+    // ========== FILTER TABS ==========
+    $$('.filter-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        $$('.filter-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentFilter = tab.dataset.filter;
+        if (currentStreetId) {
+          // Re-trigger by unsub and resub - we'll just reload
+          const housesRef = collection(db, 'users', currentUser.uid, 'streets', currentStreetId, 'houses');
+          if (housesUnsub) {
+            // We'll let the existing onSnapshot handle it via re-render, but we need to re-filter
+            // The onSnapshot callback will re-render all houses; we re-filter in renderHouses
+            // So we need to trigger the snapshot callback. Since we can't, we'll just force by
+            // temporarily storing houses. Actually the onSnapshot is active, so any change will trigger it.
+            // But to force re-render with new filter, we can just call renderHouses with last data.
+            // Instead let's just reload
+            housesUnsub();
+          }
+          loadHouses(currentStreetId);
+        }
+      });
+    });
+
+    // ========== BACK NAVIGATION ==========
+    $('back-to-streets').addEventListener('click', () => {
+      if (housesUnsub) { housesUnsub(); housesUnsub = null; }
+      currentStreetId = null;
+      currentStreetData = null;
+      showScreen('main');
+      loadStreets();
+    });
+
+    // ========== BOTTOM SHEET ==========
+    let sheetY = 0;
+    let sheetStartY = 0;
+    let sheetDragging = false;
+    const SHEET_THRESHOLD = 100;
+
+    function openSheet(html) {
+      sheetBody.innerHTML = html;
+      bottomSheet.classList.remove('hidden');
+      sheetOverlay.classList.remove('hidden');
+      setTimeout(() => {
+        bottomSheet.classList.add('open');
+        sheetOverlay.classList.add('visible');
+      }, 10);
+    }
+
+    function closeSheet() {
+      bottomSheet.classList.remove('open');
+      sheetOverlay.classList.remove('visible');
+      setTimeout(() => {
+        bottomSheet.classList.add('hidden');
+        sheetOverlay.classList.add('hidden');
+        sheetBody.innerHTML = '';
+      }, 300);
+    }
+
+    sheetOverlay.addEventListener('click', closeSheet);
+
+    // Drag to close
+    const sheetHandle = bottomSheet.querySelector('.bottom-sheet-handle');
+    sheetHandle.addEventListener('mousedown', startDrag);
+    sheetHandle.addEventListener('touchstart', startDrag, { passive: true });
+    document.addEventListener('mousemove', onDrag);
+    document.addEventListener('touchmove', onDrag, { passive: false });
+    document.addEventListener('mouseup', endDrag);
+    document.addEventListener('touchend', endDrag);
+
+    function startDrag(e) {
+      sheetDragging = true;
+      sheetStartY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+      sheetY = bottomSheet.getBoundingClientRect().top;
+      bottomSheet.style.transition = 'none';
+    }
+
+    function onDrag(e) {
+      if (!sheetDragging) return;
+      const y = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+      const delta = y - sheetStartY;
+      if (delta < 0) return; // Don't drag up
+      bottomSheet.style.transform = `translateY(${delta}px)`;
+      e.preventDefault();
+    }
+
+    function endDrag() {
+      if (!sheetDragging) return;
+      sheetDragging = false;
+      bottomSheet.style.transition = '';
+      const transform = bottomSheet.style.transform;
+      const delta = transform ? parseInt(transform.match(/translateY\(([-\d]+)px\)/)?.[1] || '0') : 0;
+      bottomSheet.style.transform = '';
+      if (delta > SHEET_THRESHOLD) {
+        closeSheet();
+      }
+    }
+
+    // ========== ADD/EDIT STREET ==========
+    function openStreetSheet(streetData = null) {
+      const isEdit = !!streetData;
+      const name = streetData?.name || '';
+      const html = `
+        <div class="sheet-header">
+          <h2>${isEdit ? 'Editar Rua' : 'Nova Rua'}</h2>
+        </div>
+        <form id="street-form" class="sheet-form">
+          <div class="input-group">
+            <label for="street-name">Nome da Rua</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+              <input type="text" id="street-name" placeholder="Ex: Rua das Flores" value="${escapeHtml(name)}" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-large">
+            ${isEdit ? 'Salvar' : 'Adicionar Rua'}
+          </button>
+          <div id="street-form-error" class="error-message hidden"></div>
+        </form>
+      `;
+      openSheet(html);
+
+      $('street-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = $('street-name').value.trim();
+        if (!name) return;
+        const btn = e.target.querySelector('.btn');
+        btn.disabled = true;
+        btn.textContent = 'Salvando...';
+        try {
+          if (isEdit) {
+            await updateDoc(doc(db, 'users', currentUser.uid, 'streets', streetData.id), { name });
+          } else {
+            await addDoc(collection(db, 'users', currentUser.uid, 'streets'), {
+              name,
+              createdAt: Timestamp.now(),
+              houseCount: 0,
+              pendingCount: 0
+            });
+          }
+          closeSheet();
+        } catch (err) {
+          console.error('Erro ao salvar rua:', err.code, err.message);
+          let msg = 'Erro ao salvar rua. ';
+          if (err.code === 'permission-denied') {
+            msg += 'Regras de segurança do Firestore bloqueiam a operação. Acesse o Console do Firebase > Firestore > Regras e altere para: allow read, write: if request.auth != null;';
+          } else {
+            msg += err.message || err.code || '';
+          }
+          showError($('street-form-error'), msg);
+          btn.disabled = false;
+          btn.textContent = isEdit ? 'Salvar' : 'Adicionar Rua';
+        }
+      });
+    }
+
+    $('fab-add-street').addEventListener('click', () => openStreetSheet());
+
+    $('edit-street-btn').addEventListener('click', () => {
+      if (currentStreetData) openStreetSheet(currentStreetData);
+    });
+
+    $('delete-street-btn').addEventListener('click', async () => {
+      if (!currentStreetData || !confirm('Excluir esta rua e todas as suas casas?')) return;
+      try {
+        // Delete all houses first
+        const housesRef = collection(db, 'users', currentUser.uid, 'streets', currentStreetId, 'houses');
+        const snap = await getDocs(housesRef);
+        const deletions = snap.docs.map(d => deleteDoc(doc(db, 'users', currentUser.uid, 'streets', currentStreetId, 'houses', d.id)));
+        await Promise.all(deletions);
+        await deleteDoc(doc(db, 'users', currentUser.uid, 'streets', currentStreetId));
+        if (housesUnsub) housesUnsub();
+        currentStreetId = null;
+        currentStreetData = null;
+        showScreen('main');
+        loadStreets();
+        showNotif('Rua excluída');
+      } catch (err) {
+        console.error('Erro ao excluir rua:', err);
+        showNotif('Erro ao excluir rua');
+      }
+    });
+
+    // ========== ADD/EDIT HOUSE ==========
+    function openHouseSheet(houseData = null, houses = []) {
+      const isEdit = !!houseData;
+      const number = houseData?.number || '';
+      const resident = houseData?.resident || '';
+      const notes = houseData?.notes || '';
+      const status = houseData?.status || 'pendente';
+      const returnDate = houseData?.returnDate ? (houseData.returnDate.toDate ? houseData.returnDate.toDate().toISOString().split('T')[0] : '') : '';
+      const returnTime = houseData?.returnTime ? (houseData.returnTime.toDate ? houseData.returnTime.toDate().toTimeString().slice(0, 5) : '') : '';
+
+      const html = `
+        <div class="sheet-header">
+          <h2>${isEdit ? 'Editar Casa' : 'Nova Casa'}</h2>
+          ${isEdit ? `<button type="button" id="delete-house-btn" class="btn-delete-sheet">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"/>
+              <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
+            </svg>
+          </button>` : ''}
+        </div>
+        <form id="house-form" class="sheet-form">
+          <div class="input-group">
+            <label for="house-number">Número da Casa</label>
+            <div class="input-wrapper">
+              <input type="number" id="house-number" placeholder="Ex: 123" value="${number}" required min="1">
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="house-resident">Nome do Morador</label>
+            <div class="input-wrapper">
+              <input type="text" id="house-resident" placeholder="Nome do morador" value="${escapeHtml(resident)}">
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="house-notes">Observações</label>
+            <div class="input-wrapper">
+              <textarea id="house-notes" placeholder="Observações gerais..." rows="3">${escapeHtml(notes)}</textarea>
+            </div>
+          </div>
+          <div class="input-group">
+            <label>Status de Atendimento</label>
+            <div class="status-selector" id="status-selector">
+              <label class="status-option ${status === 'pendente' ? 'selected' : ''}" data-status="pendente">
+                <span class="status-dot" style="background: var(--color-gray)"></span>
+                <span>Pendente</span>
+              </label>
+              <label class="status-option ${status === 'vendeu' ? 'selected' : ''}" data-status="vendeu">
+                <span class="status-dot" style="background: var(--color-green)"></span>
+                <span>Vendeu</span>
+              </label>
+              <label class="status-option ${status === 'retornar' ? 'selected' : ''}" data-status="retornar">
+                <span class="status-dot" style="background: var(--color-yellow)"></span>
+                <span>Retornar</span>
+              </label>
+              <label class="status-option ${status === 'nao_atendeu' ? 'selected' : ''}" data-status="nao_atendeu">
+                <span class="status-dot" style="background: var(--color-red)"></span>
+                <span>Não Atendeu</span>
+              </label>
+            </div>
+          </div>
+          <div class="input-group" id="return-fields" style="display: ${status === 'retornar' ? 'block' : 'none'}">
+            <label>Agendar Retorno</label>
+            <div class="return-inputs">
+              <div class="input-wrapper">
+                <input type="date" id="return-date" value="${returnDate}">
+              </div>
+              <div class="input-wrapper">
+                <input type="time" id="return-time" value="${returnTime}">
+              </div>
+            </div>
+          </div>
+          <input type="hidden" id="house-status" value="${status}">
+          <button type="submit" class="btn btn-primary btn-large">
+            ${isEdit ? 'Salvar' : 'Adicionar Casa'}
+          </button>
+          <div id="house-form-error" class="error-message hidden"></div>
+        </form>
+      `;
+      openSheet(html);
+
+      // Status selector
+      $$('.status-option').forEach(opt => {
+        opt.addEventListener('click', () => {
+          $$('.status-option').forEach(o => o.classList.remove('selected'));
+          opt.classList.add('selected');
+          const statusVal = opt.dataset.status;
+          $('house-status').value = statusVal;
+          $('return-fields').style.display = statusVal === 'retornar' ? 'block' : 'none';
+        });
+      });
+
+      // Delete house
+      const deleteBtn = $('delete-house-btn');
+      if (deleteBtn) {
+        deleteBtn.addEventListener('click', async () => {
+          if (!confirm('Excluir esta casa?')) return;
+          try {
+            await deleteDoc(doc(db, 'users', currentUser.uid, 'streets', currentStreetId, 'houses', houseData.id));
+            closeSheet();
+            showNotif('Casa excluída');
+          } catch (err) {
+            console.error('Erro ao excluir casa:', err);
+            showNotif('Erro ao excluir casa');
+          }
+        });
+      }
+
+      // Submit
+      $('house-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const num = parseInt($('house-number').value);
+        const res = $('house-resident').value.trim();
+        const not = $('house-notes').value.trim();
+        const st = $('house-status').value;
+        const retDate = $('return-date')?.value || '';
+        const retTime = $('return-time')?.value || '';
+
+        const btn = e.target.querySelector('.btn');
+        btn.disabled = true;
+        btn.textContent = 'Salvando...';
+
+        const data = {
+          number: num,
+          resident: res || '',
+          notes: not || '',
+          status: st,
+          updatedAt: Timestamp.now()
+        };
+
+        if (st === 'retornar' && retDate && retTime) {
+          data.returnDate = Timestamp.fromDate(new Date(`${retDate}T${retTime}:00`));
+          data.returnTime = Timestamp.fromDate(new Date(`${retDate}T${retTime}:00`));
+          // Schedule notification
+          scheduleReturnNotification(num, res, retDate, retTime);
+        } else {
+          data.returnDate = null;
+          data.returnTime = null;
+        }
+
+        try {
+          if (isEdit) {
+            await updateDoc(doc(db, 'users', currentUser.uid, 'streets', currentStreetId, 'houses', houseData.id), data);
+          } else {
+            await addDoc(collection(db, 'users', currentUser.uid, 'streets', currentStreetId, 'houses'), {
+              ...data,
+              createdAt: Timestamp.now()
+            });
+          }
+          closeSheet();
+        } catch (err) {
+          console.error('Erro ao salvar casa:', err.code, err.message);
+          let msg = 'Erro ao salvar casa. ';
+          if (err.code === 'permission-denied') {
+            msg += 'Regras de segurança bloqueiam. Configure Firestore > Regras: allow read, write: if request.auth != null;';
+          } else {
+            msg += err.message || err.code || '';
+          }
+          showError($('house-form-error'), msg);
+          btn.disabled = false;
+          btn.textContent = isEdit ? 'Salvar' : 'Adicionar Casa';
+        }
+      });
+    }
+
+    $('fab-add-house').addEventListener('click', () => {
+      if (currentStreetId) openHouseSheet();
+    });
+
+    // ========== NOTIFICATIONS ==========
+    function scheduleReturnNotification(houseNumber, resident, date, time) {
+      if (!('Notification' in window)) return;
+      if (Notification.permission !== 'granted') return;
+
+      const target = new Date(`${date}T${time}:00`);
+      const now = new Date();
+      const diff = target.getTime() - now.getTime() - (25 * 60 * 1000); // 25 minutes before
+
+      if (diff <= 0) return;
+
+      setTimeout(() => {
+        const n = new Notification('Minha Rota - Retorno', {
+          body: `Casa Nº ${houseNumber}${resident ? ` - ${resident}` : ''}. Hora do retorno: ${time}`,
+          icon: 'public/images/icon.svg',
+          tag: `return-${houseNumber}-${date}`
+        });
+        setTimeout(() => n.close(), 10000);
+      }, diff);
+    }
+
+    // Request notification permission
+    function requestNotifPermission() {
+      if ('Notification' in window && Notification.permission === 'default') {
+        Notification.requestPermission();
+      }
+    }
+
+    // ========== SERVICE WORKER REGISTRATION ==========
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log('SW registrado'))
+        .catch(err => console.error('Erro SW:', err));
+    }
+
+    // ========== INIT ==========
+    requestNotifPermission();
+    console.log('Minha Rota iniciado!');
+  </script>
+</body>
+</html>
