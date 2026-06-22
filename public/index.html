@@ -6,21 +6,19 @@
   <meta name="theme-color" content="#0a1628">
   <meta name="description" content="Minha Rota - Aplicativo para gerenciamento de rotas de colportagem">
   <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="public/images/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="public/images/icon.svg">
+  <link rel="icon" href="images/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="images/icon.svg">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="public/css/style.css">
-  <link rel="stylesheet" href="public/css/dark-mode.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dark-mode.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
   <title>Minha Rota</title>
 </head>
 <body>
   <!-- Splash Screen / Loading -->
   <div id="splash-screen" class="splash-screen">
     <div class="splash-content">
-      <svg class="splash-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="3"/>
-        <path d="M25 50 L45 68 L75 32" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+      <i class="ti ti-circle-check splash-icon"></i>
       <h1>Minha Rota</h1>
       <div class="splash-loader">
         <div class="splash-loader-bar"></div>
@@ -41,10 +39,7 @@
     <div class="screen-wrapper">
       <div class="auth-container">
         <div class="auth-header">
-          <svg class="auth-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="3"/>
-            <path d="M25 50 L45 68 L75 32" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <i class="ti ti-circle-check auth-icon"></i>
           <h1>Minha Rota</h1>
           <p class="auth-subtitle">Gerencie suas rotas de campo</p>
         </div>
@@ -52,26 +47,17 @@
           <div class="input-group">
             <label for="login-email">E-mail</label>
             <div class="input-wrapper">
-              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="4" width="20" height="16" rx="2"/>
-                <path d="M22 4L12 13L2 4"/>
-              </svg>
+              <i class="ti ti-mail input-icon"></i>
               <input type="email" id="login-email" placeholder="seu@email.com" required autocomplete="email">
             </div>
           </div>
           <div class="input-group">
             <label for="login-password">Senha</label>
             <div class="input-wrapper">
-              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="11" width="18" height="11" rx="2"/>
-                <path d="M7 11V7a5 5 0 0110 0v4"/>
-              </svg>
+              <i class="ti ti-lock input-icon"></i>
               <input type="password" id="login-password" placeholder="Sua senha" required autocomplete="current-password">
               <button type="button" class="toggle-password" data-target="login-password">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                  <circle cx="12" cy="12" r="3"/>
-                </svg>
+                <i class="ti ti-eye"></i>
               </button>
             </div>
           </div>
@@ -95,9 +81,7 @@
       <div class="auth-container">
         <div class="auth-header">
           <button type="button" id="back-to-login" class="btn-back">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="15 18 9 12 15 6"/>
-            </svg>
+            <i class="ti ti-chevron-left"></i>
           </button>
           <h1>Criar Conta</h1>
         </div>
@@ -105,52 +89,34 @@
           <div class="input-group">
             <label for="signup-name">Nome Completo</label>
             <div class="input-wrapper">
-              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-                <circle cx="12" cy="7" r="4"/>
-              </svg>
+              <i class="ti ti-user input-icon"></i>
               <input type="text" id="signup-name" placeholder="Seu nome completo" required autocomplete="name">
             </div>
           </div>
           <div class="input-group">
             <label for="signup-email">E-mail</label>
             <div class="input-wrapper">
-              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="4" width="20" height="16" rx="2"/>
-                <path d="M22 4L12 13L2 4"/>
-              </svg>
+              <i class="ti ti-mail input-icon"></i>
               <input type="email" id="signup-email" placeholder="seu@email.com" required autocomplete="email">
             </div>
           </div>
           <div class="input-group">
             <label for="signup-password">Senha</label>
             <div class="input-wrapper">
-              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="11" width="18" height="11" rx="2"/>
-                <path d="M7 11V7a5 5 0 0110 0v4"/>
-              </svg>
+              <i class="ti ti-lock input-icon"></i>
               <input type="password" id="signup-password" placeholder="Mínimo 6 caracteres" required minlength="6" autocomplete="new-password">
               <button type="button" class="toggle-password" data-target="signup-password">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                  <circle cx="12" cy="12" r="3"/>
-                </svg>
+                <i class="ti ti-eye"></i>
               </button>
             </div>
           </div>
           <div class="input-group">
             <label for="signup-confirm">Confirmar Senha</label>
             <div class="input-wrapper">
-              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="11" width="18" height="11" rx="2"/>
-                <path d="M7 11V7a5 5 0 0110 0v4"/>
-              </svg>
+              <i class="ti ti-lock input-icon"></i>
               <input type="password" id="signup-confirm" placeholder="Repita a senha" required minlength="6" autocomplete="new-password">
               <button type="button" class="toggle-password" data-target="signup-confirm">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                  <circle cx="12" cy="12" r="3"/>
-                </svg>
+                <i class="ti ti-eye"></i>
               </button>
             </div>
           </div>
@@ -170,9 +136,7 @@
       <div class="auth-container">
         <div class="auth-header">
           <button type="button" id="back-from-forgot" class="btn-back">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="15 18 9 12 15 6"/>
-            </svg>
+            <i class="ti ti-chevron-left"></i>
           </button>
           <h1>Recuperar Senha</h1>
           <p class="auth-subtitle">Enviaremos um link para seu e-mail</p>
@@ -181,10 +145,7 @@
           <div class="input-group">
             <label for="forgot-email">E-mail</label>
             <div class="input-wrapper">
-              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="4" width="20" height="16" rx="2"/>
-                <path d="M22 4L12 13L2 4"/>
-              </svg>
+              <i class="ti ti-mail input-icon"></i>
               <input type="email" id="forgot-email" placeholder="seu@email.com" required autocomplete="email">
             </div>
           </div>
@@ -204,22 +165,14 @@
     <header class="app-header">
       <div class="header-left">
         <button type="button" id="menu-toggle" class="btn-icon" aria-label="Menu">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="3" y1="6" x2="21" y2="6"/>
-            <line x1="3" y1="12" x2="21" y2="12"/>
-            <line x1="3" y1="18" x2="21" y2="18"/>
-          </svg>
+          <i class="ti ti-menu-2"></i>
         </button>
         <h1 class="header-title">Minha Rota</h1>
       </div>
       <div class="header-right">
         <span id="header-user-name" class="header-user-name"></span>
         <button type="button" id="logout-btn" class="btn-icon" aria-label="Sair">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
-            <polyline points="16 17 21 12 16 7"/>
-            <line x1="21" y1="12" x2="9" y2="12"/>
-          </svg>
+          <i class="ti ti-logout"></i>
         </button>
       </div>
     </header>
@@ -241,17 +194,26 @@
         </div>
         <div class="sidebar-menu">
           <button type="button" class="sidebar-item" id="sidebar-toggle-theme">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
-            </svg>
+            <i class="ti ti-moon"></i>
             <span id="sidebar-theme-text">Modo Escuro</span>
           </button>
+          <div class="theme-selector">
+            <p class="theme-selector-title">Cor do Tema</p>
+            <div class="theme-colors" id="theme-colors">
+              <button type="button" class="theme-color-btn" data-theme="blue" style="background: #1e40af;" aria-label="Azul"></button>
+              <button type="button" class="theme-color-btn" data-theme="green" style="background: #16a34a;" aria-label="Verde"></button>
+              <button type="button" class="theme-color-btn" data-theme="purple" style="background: #9333ea;" aria-label="Roxo"></button>
+              <button type="button" class="theme-color-btn" data-theme="red" style="background: #dc2626;" aria-label="Vermelho"></button>
+              <button type="button" class="theme-color-btn" data-theme="orange" style="background: #ea580c;" aria-label="Laranja"></button>
+              <button type="button" class="theme-color-btn" data-theme="pink" style="background: #db2777;" aria-label="Rosa"></button>
+              <button type="button" class="theme-color-btn" data-theme="cyan" style="background: #0891b2;" aria-label="Ciano"></button>
+              <button type="button" class="theme-color-btn" data-theme="indigo" style="background: #4f46e5;" aria-label="Índigo"></button>
+              <button type="button" class="theme-color-btn" data-theme="amber" style="background: #d97706;" aria-label="Âmbar"></button>
+              <button type="button" class="theme-color-btn" data-theme="emerald" style="background: #059669;" aria-label="Esmeralda"></button>
+            </div>
+          </div>
           <button type="button" class="sidebar-item" id="sidebar-logout">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
-              <polyline points="16 17 21 12 16 7"/>
-              <line x1="21" y1="12" x2="9" y2="12"/>
-            </svg>
+            <i class="ti ti-logout"></i>
             <span>Sair</span>
           </button>
         </div>
@@ -277,22 +239,14 @@
 
       <!-- Search Bar -->
       <div class="search-bar">
-        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"/>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
+        <i class="ti ti-search search-icon"></i>
         <input type="text" id="search-street" placeholder="Buscar rua..." class="search-input">
       </div>
 
       <!-- Streets List -->
       <div id="streets-container" class="list-container">
         <div id="streets-empty" class="empty-state">
-          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="10" y="20" width="80" height="60" rx="8"/>
-            <line x1="20" y1="40" x2="80" y2="40"/>
-            <line x1="20" y1="55" x2="60" y2="55"/>
-            <line x1="20" y1="70" x2="45" y2="70"/>
-          </svg>
+          <i class="ti ti-road" style="font-size: 3rem; opacity: 0.4;"></i>
           <p>Nenhuma rua cadastrada</p>
           <p class="empty-sub">Adicione sua primeira rua</p>
         </div>
@@ -302,10 +256,7 @@
 
     <!-- FAB (Add Street) -->
     <button type="button" id="fab-add-street" class="fab" aria-label="Adicionar rua">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-        <line x1="12" y1="5" x2="12" y2="19"/>
-        <line x1="5" y1="12" x2="19" y2="12"/>
-      </svg>
+      <i class="ti ti-plus"></i>
     </button>
   </section>
 
@@ -314,9 +265,7 @@
     <header class="app-header">
       <div class="header-left">
         <button type="button" id="back-to-streets" class="btn-icon" aria-label="Voltar">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="15 18 9 12 15 6"/>
-          </svg>
+          <i class="ti ti-chevron-left"></i>
         </button>
         <div class="header-street-info">
           <h1 id="street-title" class="header-title">Rua</h1>
@@ -325,16 +274,10 @@
       </div>
       <div class="header-right">
         <button type="button" id="edit-street-btn" class="btn-icon" aria-label="Editar rua">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
-            <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
-          </svg>
+          <i class="ti ti-edit"></i>
         </button>
         <button type="button" id="delete-street-btn" class="btn-icon btn-icon-danger" aria-label="Excluir rua">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="3 6 5 6 21 6"/>
-            <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
-          </svg>
+          <i class="ti ti-trash"></i>
         </button>
       </div>
     </header>
@@ -367,11 +310,7 @@
       <!-- Houses List -->
       <div id="houses-container" class="list-container">
         <div id="houses-empty" class="empty-state">
-          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20 50 L50 20 L80 50"/>
-            <rect x="35" y="50" width="30" height="30" rx="3"/>
-            <rect x="45" y="55" width="10" height="10" rx="1"/>
-          </svg>
+          <i class="ti ti-home" style="font-size: 3rem; opacity: 0.4;"></i>
           <p>Nenhuma casa cadastrada</p>
           <p class="empty-sub">Adicione as casas desta rua</p>
         </div>
@@ -381,12 +320,29 @@
 
     <!-- FAB (Add House) -->
     <button type="button" id="fab-add-house" class="fab" aria-label="Adicionar casa">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-        <line x1="12" y1="5" x2="12" y2="19"/>
-        <line x1="5" y1="12" x2="19" y2="12"/>
-      </svg>
+      <i class="ti ti-plus"></i>
     </button>
   </section>
+
+  <!-- ===================== INSTALL PROMPT ===================== -->
+  <div id="install-prompt" class="install-prompt">
+    <button type="button" id="install-prompt-close" class="install-prompt-close">
+      <i class="ti ti-x"></i>
+    </button>
+    <div class="install-prompt-content">
+      <div class="install-prompt-icon">
+        <i class="ti ti-device-desktop"></i>
+      </div>
+      <div class="install-prompt-text">
+        <h3>Instalar App</h3>
+        <p>Adicione o Minha Rota à sua tela inicial para acesso rápido e experiência completa.</p>
+      </div>
+    </div>
+    <div class="install-prompt-actions">
+      <button type="button" id="install-prompt-cancel" class="btn">Agora não</button>
+      <button type="button" id="install-prompt-confirm" class="btn btn-primary">Instalar</button>
+    </div>
+  </div>
 
   <!-- ===================== BOTTOM SHEET ===================== -->
   <div id="bottom-sheet-overlay" class="bottom-sheet-overlay hidden"></div>
@@ -728,6 +684,32 @@
     });
     applyTheme(isDarkMode);
 
+    // Theme Color Selector
+    const themeColors = ['blue', 'green', 'purple', 'red', 'orange', 'pink', 'cyan', 'indigo', 'amber', 'emerald'];
+    let currentThemeColor = localStorage.getItem('themeColor') || 'blue';
+
+    function applyThemeColor(color) {
+      currentThemeColor = color;
+      document.documentElement.setAttribute('data-theme-color', color);
+      localStorage.setItem('themeColor', color);
+      updateThemeColorButtons();
+    }
+
+    function updateThemeColorButtons() {
+      $$('.theme-color-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.theme === currentThemeColor);
+      });
+    }
+
+    $$('.theme-color-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        applyThemeColor(btn.dataset.theme);
+      });
+    });
+
+    // Apply saved theme color on load
+    applyThemeColor(currentThemeColor);
+
     // ========== STREETS (Firestore) ==========
     function loadStreets() {
       if (streetsUnsub) streetsUnsub();
@@ -808,18 +790,13 @@
               <h3 class="street-name">${escapeHtml(s.name || 'Sem nome')}</h3>
               <div class="street-meta">
                 <span class="street-meta-item">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
-                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-                    <circle cx="12" cy="7" r="4"/>
-                  </svg>
+                  <i class="ti ti-users" style="font-size: 14px;"></i>
                   ${totalHouses} casas
                 </span>
                 ${pendingHouses > 0 ? `<span class="street-meta-item pending">${pendingHouses} pendentes</span>` : ''}
               </div>
             </div>
-            <svg class="street-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="9 18 15 12 9 6"/>
-            </svg>
+            <i class="ti ti-chevron-right street-arrow"></i>
           </div>
         `;
       }).join('');
@@ -933,6 +910,15 @@
         filtered = houses.filter(h => h.status === currentFilter);
       }
 
+      // Sort "retornar" houses by return date (most urgent first)
+      if (currentFilter === 'retornar') {
+        filtered.sort((a, b) => {
+          const aDate = a.returnDate?.toMillis?.() || a.returnDate || 0;
+          const bDate = b.returnDate?.toMillis?.() || b.returnDate || 0;
+          return aDate - bDate;
+        });
+      }
+
       if (filtered.length === 0) {
         housesList.innerHTML = '';
         housesEmpty.style.display = 'flex';
@@ -950,6 +936,9 @@
               <div class="house-card-header">
                 <span class="house-number">Nº ${escapeHtml(String(h.number || '-'))}</span>
                 <span class="house-status-badge" style="background: ${statusColor}20; color: ${statusColor}">${statusLabel}</span>
+                <button type="button" class="btn-delete-house" data-id="${h.id}" aria-label="Excluir casa">
+                  <i class="ti ti-trash"></i>
+                </button>
               </div>
               <p class="house-resident">${escapeHtml(h.resident || 'Sem nome')}</p>
               ${h.notes ? `<p class="house-notes">${escapeHtml(h.notes)}</p>` : ''}
@@ -961,10 +950,28 @@
 
       // Click to edit house
       housesList.querySelectorAll('.house-card').forEach(card => {
-        card.addEventListener('click', () => {
+        card.addEventListener('click', (e) => {
+          // Don't open sheet if clicking delete button
+          if (e.target.closest('.btn-delete-house')) return;
           const houseId = card.dataset.id;
           const house = houses.find(h => h.id === houseId);
           if (house) openHouseSheet(house, houses);
+        });
+      });
+
+      // Delete house button
+      housesList.querySelectorAll('.btn-delete-house').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+          e.stopPropagation();
+          const houseId = btn.dataset.id;
+          if (!confirm('Excluir esta casa?')) return;
+          try {
+            await deleteDoc(doc(db, 'users', currentUser.uid, 'streets', currentStreetId, 'houses', houseId));
+            showNotif('Casa excluída');
+          } catch (err) {
+            console.error('Erro ao excluir casa:', err);
+            showNotif('Erro ao excluir casa', true);
+          }
         });
       });
     }
@@ -1104,10 +1111,7 @@
           <div class="input-group">
             <label for="street-name">Nome da Rua</label>
             <div class="input-wrapper">
-              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-                <circle cx="12" cy="7" r="4"/>
-              </svg>
+              <i class="ti ti-road input-icon"></i>
               <input type="text" id="street-name" placeholder="Ex: Rua das Flores" value="${escapeHtml(name)}" required>
             </div>
           </div>
@@ -1194,10 +1198,7 @@
         <div class="sheet-header">
           <h2>${isEdit ? 'Editar Casa' : 'Nova Casa'}</h2>
           ${isEdit ? `<button type="button" id="delete-house-btn" class="btn-delete-sheet">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="3 6 5 6 21 6"/>
-              <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
-            </svg>
+            <i class="ti ti-trash"></i>
           </button>` : ''}
         </div>
         <form id="house-form" class="sheet-form">
@@ -1362,7 +1363,7 @@
       setTimeout(() => {
         const n = new Notification('Minha Rota - Retorno', {
           body: `Casa Nº ${houseNumber}${resident ? ` - ${resident}` : ''}. Hora do retorno: ${time}`,
-          icon: 'public/images/icon.svg',
+          icon: 'images/icon.svg',
           tag: `return-${houseNumber}-${date}`
         });
         setTimeout(() => n.close(), 10000);
@@ -1382,6 +1383,55 @@
         .then(() => console.log('SW registrado'))
         .catch(err => console.error('Erro SW:', err));
     }
+
+    // ========== INSTALL PROMPT ==========
+    let deferredPrompt = null;
+    const installPrompt = $('install-prompt');
+    const installPromptClose = $('install-prompt-close');
+    const installPromptCancel = $('install-prompt-cancel');
+    const installPromptConfirm = $('install-prompt-confirm');
+
+    // Detectar se o app pode ser instalado
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      // Mostrar popup após login (se já estiver logado) ou aguardar login
+      const hasShownInstall = localStorage.getItem('installPromptShown');
+      if (!hasShownInstall && currentUser) {
+        setTimeout(() => showInstallPrompt(), 2000);
+      }
+    });
+
+    function showInstallPrompt() {
+      installPrompt.classList.add('visible');
+      localStorage.setItem('installPromptShown', 'true');
+    }
+
+    function hideInstallPrompt() {
+      installPrompt.classList.remove('visible');
+    }
+
+    async function installApp() {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log('Instalação:', outcome);
+      deferredPrompt = null;
+      hideInstallPrompt();
+    }
+
+    installPromptClose.addEventListener('click', hideInstallPrompt);
+    installPromptCancel.addEventListener('click', hideInstallPrompt);
+    installPromptConfirm.addEventListener('click', installApp);
+
+    // Mostrar popup após login se o prompt estiver disponível
+    const originalShowAuthScreen = showAuthScreen;
+    showAuthScreen = function(user) {
+      originalShowAuthScreen(user);
+      if (user && deferredPrompt && !localStorage.getItem('installPromptShown')) {
+        setTimeout(() => showInstallPrompt(), 2500);
+      }
+    };
 
     // ========== INIT ==========
     requestNotifPermission();
