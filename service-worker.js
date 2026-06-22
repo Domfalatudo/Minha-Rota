@@ -5,7 +5,9 @@ const STATIC_ASSETS = [
   '/manifest.json',
   '/public/css/style.css',
   '/public/css/dark-mode.css',
-  '/public/images/icon.svg'
+  '/public/images/icon.svg',
+  '/public/images/icon-192.png',
+  '/public/images/icon-512.png'
 ];
 
 // Install event - cache static assets

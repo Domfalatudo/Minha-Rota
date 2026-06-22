@@ -371,13 +371,6 @@ img {
   color: white;
 }
 
-.splash-icon {
-  width: 80px;
-  height: 80px;
-  margin-bottom: 20px;
-  animation: pulse 1.5s ease-in-out infinite;
-}
-
 .splash-content h1 {
   font-size: 28px;
   font-weight: 800;
@@ -438,8 +431,8 @@ img {
 .auth-icon {
   width: 60px;
   height: 60px;
-  color: var(--color-accent);
-  margin-bottom: 16px;
+  margin: 0 auto 16px;
+  display: block;
 }
 
 .auth-header h1 {

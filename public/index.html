@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="theme-color" content="#0a1628">
   <meta name="description" content="Minha Rota - Aplicativo para gerenciamento de rotas de colportagem">
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="/manifest.json">
   <link rel="icon" href="images/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="images/icon.svg">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -18,7 +18,6 @@
   <!-- Splash Screen / Loading -->
   <div id="splash-screen" class="splash-screen">
     <div class="splash-content">
-      <i class="ti ti-circle-check splash-icon"></i>
       <h1>Minha Rota</h1>
       <div class="splash-loader">
         <div class="splash-loader-bar"></div>
@@ -39,7 +38,7 @@
     <div class="screen-wrapper">
       <div class="auth-container">
         <div class="auth-header">
-          <i class="ti ti-circle-check auth-icon"></i>
+          <img src="images/icon-192.png" alt="Minha Rota" class="auth-icon">
           <h1>Minha Rota</h1>
           <p class="auth-subtitle">Gerencie suas rotas de campo</p>
         </div>
@@ -1379,7 +1378,7 @@
 
     // ========== SERVICE WORKER REGISTRATION ==========
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
+    navigator.serviceWorker.register('/service-worker.js')
         .then(() => console.log('SW registrado'))
         .catch(err => console.error('Erro SW:', err));
     }
@@ -1393,16 +1392,26 @@
 
     // Detectar se o app pode ser instalado
     window.addEventListener('beforeinstallprompt', (e) => {
+      console.log('beforeinstallprompt disparado');
       e.preventDefault();
       deferredPrompt = e;
       // Mostrar popup após login (se já estiver logado) ou aguardar login
       const hasShownInstall = localStorage.getItem('installPromptShown');
+      console.log('hasShownInstall:', hasShownInstall, 'currentUser:', currentUser);
       if (!hasShownInstall && currentUser) {
         setTimeout(() => showInstallPrompt(), 2000);
       }
     });
 
+    // Verificar se o app já está instalado
+    window.addEventListener('appinstalled', () => {
+      console.log('App instalado com sucesso!');
+      deferredPrompt = null;
+      hideInstallPrompt();
+    });
+
     function showInstallPrompt() {
+      console.log('Mostrando install prompt');
       installPrompt.classList.add('visible');
       localStorage.setItem('installPromptShown', 'true');
     }
@@ -1412,7 +1421,11 @@
     }
 
     async function installApp() {
-      if (!deferredPrompt) return;
+      if (!deferredPrompt) {
+        console.log('deferredPrompt não disponível');
+        return;
+      }
+      console.log('Iniciando instalação...');
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
       console.log('Instalação:', outcome);
@@ -1435,6 +1448,44 @@
 
     // ========== INIT ==========
     requestNotifPermission();
+    
+    // Debug: verificar se o manifest está carregado
+    console.log('Verificando manifest...');
+    fetch('manifest.json')
+      .then(res => res.json())
+      .then(manifest => {
+        console.log('Manifest carregado:', manifest);
+        console.log('Ícones no manifest:', manifest.icons);
+      })
+      .catch(err => console.error('Erro ao carregar manifest:', err));
+    
+    // Debug: verificar se o SW está registrado
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistration()
+        .then(reg => {
+          if (reg) {
+            console.log('Service Worker registrado:', reg);
+          } else {
+            console.log('Service Worker NÃO registrado');
+          }
+        })
+        .catch(err => console.error('Erro ao verificar SW:', err));
+    }
+    
+    // Debug: verificar se o app está em HTTPS ou localhost (requisito para PWA)
+    console.log('Protocolo:', window.location.protocol);
+    console.log('Hostname:', window.location.hostname);
+    if (window.location.protocol === 'file:') {
+      console.error('❌ O app está sendo aberto via file:// protocol. PWAs NÃO funcionam com file://. Use um servidor HTTP local (ex: npx serve .) ou deploy em HTTPS.');
+    } else if (window.location.protocol !== 'https:' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+      console.warn('⚠️ O app NÃO está em HTTPS ou localhost. PWA pode não funcionar.');
+    }
+    
+    // Debug: verificar se o beforeinstallprompt foi disparado
+    console.log('Aguardando beforeinstallprompt...');
+    console.log('Dica: O beforeinstallprompt só é disparado se o app for um PWA válido (manifest + SW + HTTPS/localhost)');
+    console.log('Para testar: 1) Use um servidor HTTP, 2) Acesse via localhost ou HTTPS, 3) Verifique se o manifest carregou corretamente');
+    
     console.log('Minha Rota iniciado!');
   </script>
 </body>
