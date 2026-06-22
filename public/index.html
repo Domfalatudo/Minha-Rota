@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="theme-color" content="#0a1628">
   <meta name="description" content="Minha Rota - Aplicativo para gerenciamento de rotas de colportagem">
-  <link rel="manifest" href="/manifest.json">
+  <link rel="manifest" href="manifest.json">
   <link rel="icon" href="images/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="images/icon.svg">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -1362,7 +1362,7 @@
       setTimeout(() => {
         const n = new Notification('Minha Rota - Retorno', {
           body: `Casa Nº ${houseNumber}${resident ? ` - ${resident}` : ''}. Hora do retorno: ${time}`,
-          icon: 'images/icon.svg',
+          icon: '/images/icon.svg',
           tag: `return-${houseNumber}-${date}`
         });
         setTimeout(() => n.close(), 10000);
@@ -1378,7 +1378,7 @@
 
     // ========== SERVICE WORKER REGISTRATION ==========
     if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/service-worker.js')
+    navigator.serviceWorker.register('service-worker.js')
         .then(() => console.log('SW registrado'))
         .catch(err => console.error('Erro SW:', err));
     }
@@ -1451,7 +1451,7 @@
     
     // Debug: verificar se o manifest está carregado
     console.log('Verificando manifest...');
-    fetch('manifest.json')
+    fetch('./manifest.json')
       .then(res => res.json())
       .then(manifest => {
         console.log('Manifest carregado:', manifest);

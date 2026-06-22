@@ -3,11 +3,11 @@ const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/manifest.json',
-  '/public/css/style.css',
-  '/public/css/dark-mode.css',
-  '/public/images/icon.svg',
-  '/public/images/icon-192.png',
-  '/public/images/icon-512.png'
+  '/css/style.css',
+  '/css/dark-mode.css',
+  '/images/icon.svg',
+  '/images/icon-192.png',
+  '/images/icon-512.png'
 ];
 
 // Install event - cache static assets
@@ -79,8 +79,8 @@ self.addEventListener('push', (event) => {
   const data = event.data.json();
   const options = {
     body: data.body || '',
-    icon: '/public/images/icon.svg',
-    badge: '/public/images/icon.svg',
+    icon: '/images/icon.svg',
+    badge: '/images/icon.svg',
     vibrate: [200, 100, 200],
     tag: data.tag || 'default',
     requireInteraction: true
