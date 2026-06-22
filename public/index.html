@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#0a1628">
   <meta name="description" content="Minha Rota - Aplicativo para gerenciamento de rotas de colportagem">
   <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="images/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="images/icon.svg">
+  <link rel="icon" href="images/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="images/icon-192.png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/dark-mode.css">
@@ -211,6 +211,10 @@
               <button type="button" class="theme-color-btn" data-theme="emerald" style="background: #059669;" aria-label="Esmeralda"></button>
             </div>
           </div>
+          <button type="button" class="sidebar-item" id="sidebar-install">
+            <i class="ti ti-download"></i>
+            <span>Instalar App</span>
+          </button>
           <button type="button" class="sidebar-item" id="sidebar-logout">
             <i class="ti ti-logout"></i>
             <span>Sair</span>
@@ -641,6 +645,7 @@
     $('back-to-login').addEventListener('click', () => showScreen('login'));
     $('forgot-password-link').addEventListener('click', () => showScreen('forgot'));
     $('back-from-forgot').addEventListener('click', () => showScreen('login'));
+    $('sidebar-install').addEventListener('click', () => { closeSidebar(); installApp(); });
     $('sidebar-logout').addEventListener('click', () => { closeSidebar(); handleLogout(); });
     $('logout-btn').addEventListener('click', handleLogout);
 
@@ -1362,7 +1367,7 @@
       setTimeout(() => {
         const n = new Notification('Minha Rota - Retorno', {
           body: `Casa Nº ${houseNumber}${resident ? ` - ${resident}` : ''}. Hora do retorno: ${time}`,
-          icon: '/images/icon.svg',
+          icon: '/images/icon-192.png',
           tag: `return-${houseNumber}-${date}`
         });
         setTimeout(() => n.close(), 10000);
